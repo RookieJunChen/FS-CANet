@@ -1,60 +1,105 @@
-# FullSubNet+: A Framework With Channel Attention On Multiple Input Spectrograms For Speech Enhancement
+# Speech Enhancement with Fullband-Subband Cross-Attention Network
 
-## 语音变化程度控制对比实验
+### *Jun Chen, Wei Rao, Zilin Wang, Zhiyong Wu, Yannan Wang,  Tao Yu, Shidong Shang, Helen Meng*
 
-### 合成样例展示
+<h2 id = "1">Abstract</h2>
 
-| **Model** |      **Condition**      |                          **Audio**                           |                     **Mel-spectrogram**                      |
-| :-------: | :---------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| Flowtron  |      *sigma = 0.0*      | <audio controls><source src="./data/experiment1/Audio/flowtron_0.0.wav" type="audio/wav">Your browser does not support the audio element.</audio> | <img src="./data/experiment1/Mel-spectrogram/Flowtron_0.0.png" alt="flowtron_0.0" style="zoom: 40%;" /> |
-| Flowtron  |      *sigma = 0.5*      | <audio controls><source src="./data/experiment1/Audio/flowtron_0.5.wav" type="audio/wav">Your browser does not support the audio element.</audio> | <img src="./data/experiment1/Mel-spectrogram/Flowtron_0.5.png" alt="flowtron_0.5" style="zoom: 40%;" /> |
-| Flowtron  |      *sigma = 1.0*      | <audio controls><source src="./data/experiment1/Audio/flowtron.wav" type="audio/wav">Your browser does not support the audio element.</audio> | <img src="./data/experiment1/Mel-spectrogram/flowtron.png" alt="flowtron_1.0" style="zoom: 52%;" /> |
-| Tacotron2 | *p in {0.45,0.5,0.55 }* | <audio controls><source src="./data/experiment1/Audio/tacotron2.wav" type="audio/wav">Your browser does not support the audio element.</audio> | <img src="./data/experiment1/Mel-spectrogram/Tacotron2.png" alt="flowtron_0.5" style="zoom: 40%;" /> |
+FullSubNet has shown its promising performance on speech enhancement by utilizing both fullband and subband information. However, the relationship between fullband and subband in FullSubNet is achieved by simply concatenating the output of fullband model and subband units. It has not considered the interaction between fullband and subband. This paper proposes a fullband-subband cross-attention (FSCA) module to interactively fuse the global and local spectral information and applies it to FullSubNet. This new framework is called as FS-CANet. Moreover, different from FullSubNet, the proposed FS-CANet optimize the fullband extractor by temporal convolutional network (TCN) blocks to further reduce the model size. Experimental results on DNS Challenge - Interspeech 2021 dataset show that the proposed FS-CANet outperforms other state-of-the-art speech enhancement approaches, and demonstrate the effectiveness of fullband-subband cross-attention.
 
 
 
-### **F0 Contours对比图**
+## With Reverberation
 
-|                       **F0 Contours**                        |
-| :----------------------------------------------------------: |
-| **<img src="./data/experiment1/F0-Contours/Flowtron_0.0.png" alt="flowtron_0.0" style="zoom: 120%;" />** |
-|                   *Flowtron   sigma = 0.0*                   |
-| **<img src="./data/experiment1/F0-Contours/Flowtron_0.5.png" alt="flowtron_0.0" style="zoom: 120%;" />** |
-|                   *Flowtron   sigma = 0.5*                   |
-| **<img src="./data/experiment1/F0-Contours/Flowtron_1.0.png" alt="flowtron_0.0" style="zoom: 120%;" />** |
-|                   *Flowtron  sigma = 1.0*                    |
-| **<img src="./data/experiment1/F0-Contours/Tacotron2.png" alt="flowtron_0.0" style="zoom: 120%;" />** |
-|              *Tacotron2  p in {0.45,0.5,0.55 }*              |
+<h3 id = "8">case 1</h3>
+
+|                          **case 1**                          |                                                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| **Noisy**<br><audio controls><source src="./data/with_reverb/example63/noisy.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **FullSubNet**<br><audio controls><source src="./data/with_reverb/example63/fullsubnet.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| **<img src="./data/with_reverb/example63/noisy.png" alt="flowtron_0.0" style="zoom: 80%;" />** | **<img src="./data/with_reverb/example63/fullsubnet.png" alt="flowtron_0.0" style="zoom: 80%;" />** |
+| **FS-CANet**<br><audio controls><source src="./data/with_reverb/example63/fscanet.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **Clean**<br><audio controls><source src="./data/with_reverb/example63/clean.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| <img src="./data/with_reverb/example63/fscanet.png" alt="flowtron_0.0" style="zoom: 80%;" /> | <img src="./data/with_reverb/example63/clean.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
 
 
 
+<h3 id = "8">case 2</h3>
+
+|                          **case 2**                          |                                                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| **Noisy**<br><audio controls><source src="./data/with_reverb/example249/noisy.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **FullSubNet**<br><audio controls><source src="./data/with_reverb/example249/fullsubnet.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| **<img src="./data/with_reverb/example249/noisy.png" alt="flowtron_0.0" style="zoom: 80%;" />** | **<img src="./data/with_reverb/example249/fullsubnet.png" alt="flowtron_0.0" style="zoom: 80%;" />** |
+| **FS-CANet**<br><audio controls><source src="./data/with_reverb/example249/fscanet.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **Clean**<br><audio controls><source src="./data/with_reverb/example249/clean.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| <img src="./data/with_reverb/example249/fscanet.png" alt="flowtron_0.0" style="zoom: 80%;" /> | <img src="./data/with_reverb/example249/clean.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
+
+
+
+<h3 id = "8">case 3</h3>
+
+|                          **case 3**                          |                                                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| **Noisy**<br><audio controls><source src="./data/with_reverb/example206/noisy.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **FullSubNet**<br><audio controls><source src="./data/with_reverb/example206/fullsubnet.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| **<img src="./data/with_reverb/example206/noisy.png" alt="flowtron_0.0" style="zoom: 80%;" />** | **<img src="./data/with_reverb/example206/fullsubnet.png" alt="flowtron_0.0" style="zoom: 80%;" />** |
+| **FS-CANet**<br><audio controls><source src="./data/with_reverb/example206/fscanet.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **Clean**<br><audio controls><source src="./data/with_reverb/example206/clean.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| <img src="./data/with_reverb/example206/fscanet.png" alt="flowtron_0.0" style="zoom: 80%;" /> | <img src="./data/with_reverb/example206/clean.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
+
+
+
+<h3 id = "8">case 4</h3>
+
+|                          **case 4**                          |                                                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| **Noisy**<br><audio controls><source src="./data/with_reverb/example26/noisy.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **FullSubNet**<br><audio controls><source src="./data/with_reverb/example26/fullsubnet.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| **<img src="./data/with_reverb/example26/noisy.png" alt="flowtron_0.0" style="zoom: 80%;" />** | **<img src="./data/with_reverb/example26/fullsubnet.png" alt="flowtron_0.0" style="zoom: 80%;" />** |
+| **FS-CANet**<br><audio controls><source src="./data/with_reverb/example26/fscanet.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **Clean**<br><audio controls><source src="./data/with_reverb/example26/clean.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| <img src="./data/with_reverb/example26/fscanet.png" alt="flowtron_0.0" style="zoom: 80%;" /> | <img src="./data/with_reverb/example26/clean.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
 
 
 
 
 
 
-## **样本间插值实验**
 
-| **Case**  |                         **Gaussian**                         |                     **Mel-spectrogram**                      |                          **Audio**                           |
-| :-------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-| sample 1  | **<img src="./data/experiment2/Gaussian/0.png" alt="flowtron_0.0" style="zoom: 40%;" />** | **<img src="./data/experiment2/Mel-spectrogram/0.png" alt="flowtron_0.0" style="zoom: 40%;" />** | <audio controls><source src="./data/experiment2/Audio/0.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
-| step = 25 | **<img src="./data/experiment2/Gaussian/25.png" alt="flowtron_0.0" style="zoom: 40%;" />** | **<img src="./data/experiment2/Mel-spectrogram/25.png" alt="flowtron_0.0" style="zoom: 40%;" />** | <audio controls><source src="./data/experiment2/Audio/25.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
-| step = 75 | **<img src="./data/experiment2/Gaussian/75.png" alt="flowtron_0.0" style="zoom: 40%;" />** | **<img src="./data/experiment2/Mel-spectrogram/75.png" alt="flowtron_0.0" style="zoom: 40%;" />** | <audio controls><source src="./data/experiment2/Audio/75.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
-| sample 2  | **<img src="./data/experiment2/Gaussian/100.png" alt="flowtron_0.0" style="zoom: 40%;" />** | **<img src="./data/experiment2/Mel-spectrogram/100.png" alt="flowtron_0.0" style="zoom: 40%;" />** | <audio controls><source src="./data/experiment2/Audio/100.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+## Without Reverberation
 
+<h3 id = "3"> case 1</h3>
 
-
-
-
+|                          **case 1**                          |                                                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| **Noisy**<br><audio controls><source src="./data/no_reverb/example63/noisy.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **FullSubNet**<br><audio controls><source src="./data/no_reverb/example63/fullsubnet.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| **<img src="./data/no_reverb/example63/noisy.png" alt="flowtron_0.0" style="zoom: 80%;" />** | <img src="./data/no_reverb/example63/fullsubnet.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
+| **FS-CANet**<br><audio controls><source src="./data/no_reverb/example63/fscanet.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **Clean**<br><audio controls><source src="./data/no_reverb/example63/clean.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| <img src="./data/no_reverb/example63/fscanet.png" alt="flowtron_0.0" style="zoom: 80%;" /> | <img src="./data/no_reverb/example63/clean.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
 
 
-## **说话人之间风格转换实验**
 
-|        **Case**        |                          **Image**                           |                          **Audio**                           |
-| :--------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
-|        参考音频        | **<img src="./data/experiment3/Image/0.png" alt="flowtron_0.0" style="zoom: 50%;" />** | <audio controls><source src="./data/experiment3/Audio/reference.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
-| Flowtron随机采样的语音 | **<img src="./data/experiment3/Image/1.png" alt="flowtron_0.0" style="zoom: 50%;" />** | <audio controls><source src="./data/experiment3/Audio/normal.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
-| Flowtron风格转换的语音 | **<img src="./data/experiment3/Image/2.png" alt="flowtron_0.0" style="zoom: 50%;" />** | <audio controls><source src="./data/experiment3/Audio/GST_Tacotron.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
-|   GSTs风格转换的语音   | **<img src="./data/experiment3/Image/4.png" alt="flowtron_0.0" style="zoom: 25%;" />** | <audio controls><source src="./data/experiment3/Audio/transfer.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+<h3 id = "3"> case 2</h3>
 
+|                          **case 2**                          |                                                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| **Noisy**<br><audio controls><source src="./data/no_reverb/example67/noisy.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **FullSubNet**<br><audio controls><source src="./data/no_reverb/example67/fullsubnet.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| **<img src="./data/no_reverb/example67/noisy.png" alt="flowtron_0.0" style="zoom: 80%;" />** | <img src="./data/no_reverb/example67/fullsubnet.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
+|                       **FS-CANet**<br>                       |                        **Clean**<br>                         |
+| <img src="./data/no_reverb/example67/fscanet.png" alt="flowtron_0.0" style="zoom: 80%;" /> | <img src="./data/no_reverb/example67/clean.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
+
+
+
+<h3 id = "3"> case 3</h3>
+
+|                          **case 3**                          |                                                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| **Noisy**<br><audio controls><source src="./data/no_reverb/example145/noisy.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **FullSubNet**<br><audio controls><source src="./data/no_reverb/example145/fullsubnet.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| **<img src="./data/no_reverb/example145/noisy.png" alt="flowtron_0.0" style="zoom: 80%;" />** | <img src="./data/no_reverb/example145/fullsubnet.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
+| **FS-CANet**<br><audio controls><source src="./data/no_reverb/example145/fscanet.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **Clean**<br><audio controls><source src="./data/no_reverb/example145/clean.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| <img src="./data/no_reverb/example145/fscanet.png" alt="flowtron_0.0" style="zoom: 80%;" /> | <img src="./data/no_reverb/example145/clean.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
+
+
+
+
+
+<h3 id = "3"> case 4</h3>
+
+|                          **case 4**                          |                                                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| **Noisy**<br><audio controls><source src="./data/no_reverb/example206/noisy.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **FullSubNet**<br><audio controls><source src="./data/no_reverb/example206/fullsubnet.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| **<img src="./data/no_reverb/example206/noisy.png" alt="flowtron_0.0" style="zoom: 80%;" />** | <img src="./data/no_reverb/example206/fullsubnet.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
+| **FS-CANet**<br><audio controls><source src="./data/no_reverb/example206/fscanet.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **FS-CANet**<br><audio controls><source src="./data/no_reverb/example206/clean.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
+| <img src="./data/no_reverb/example206/fscanet.png" alt="flowtron_0.0" style="zoom: 80%;" /> | <img src="./data/no_reverb/example206/clean.png" alt="flowtron_0.0" style="zoom: 80%;" /> |

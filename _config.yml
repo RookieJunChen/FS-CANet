@@ -1,5 +1,5 @@
-title: "FullSubNet+: A Framework With Channel Attention On Multiple Input Spectrograms For Speech Enhancement"
-description: A demo page by Jun Chen.
+title: "Speech Enhancement with Fullband-Subband Cross-Attention Network"
+description: SUBMITTED TO InterSpeech 2022
 show_downloads: true
 google_analytics:
 theme: jekyll-theme-slate
