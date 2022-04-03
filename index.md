@@ -77,7 +77,7 @@ FullSubNet has shown its promising performance on speech enhancement by utilizin
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
 | **Noisy**<br><audio controls><source src="./data/no_reverb/example67/noisy.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **FullSubNet**<br><audio controls><source src="./data/no_reverb/example67/fullsubnet.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
 | **<img src="./data/no_reverb/example67/noisy.png" alt="flowtron_0.0" style="zoom: 80%;" />** | <img src="./data/no_reverb/example67/fullsubnet.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
-|                       **FS-CANet**<br>                       |                        **Clean**<br>                         |
+| **FS-CANet**<br><audio controls><source src="./data/no_reverb/example67/fscanet.wav" type="audio/wav">Your browser does not support the audio element.</audio> | **Clean**<br><audio controls><source src="./data/no_reverb/example67/clean.wav" type="audio/wav">Your browser does not support the audio element.</audio> |
 | <img src="./data/no_reverb/example67/fscanet.png" alt="flowtron_0.0" style="zoom: 80%;" /> | <img src="./data/no_reverb/example67/clean.png" alt="flowtron_0.0" style="zoom: 80%;" /> |
 
 
