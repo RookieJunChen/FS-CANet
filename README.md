@@ -1,1 +1,1 @@
-Please visit [https://hit-thusz-rookiecj.github.io/FS-CANet/](https://hit-thusz-rookiecj.github.io/FS-CANet/)
+Please visit [https://hit-thusz-rookiecj.github.io/FS-CANet/](https://rookiejunchen.github.io/FS-CANet/)
